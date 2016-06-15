@@ -23,7 +23,6 @@ public class App {
 
         String originalHtmlFile = args[0];
         File file = new File(originalHtmlFile);
-        InputStream is = new FileInputStream(file);
 
         // using jsoup to transform the original html in
         // a well formatted xhtml
