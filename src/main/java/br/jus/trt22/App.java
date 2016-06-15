@@ -14,8 +14,7 @@ import java.io.*;
 public class App {
     /**
      *
-     * See convert.sh inthe root of this project for how to use
-     * this project
+     * See convert.sh (in the root of this project) for how to do a batch conversion
      *
      * @param args must receive 2 arguments: the input filename and the final pdf file name
      * @throws Exception
@@ -50,24 +49,6 @@ public class App {
         // rendering the final pdf to the pdf file name
         String convertedPDFFileName = args[1];
         doRenderToPDF(renderer, convertedPDFFileName);
-    }
-
-    private String readFile(String file) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader (file));
-        String         line = null;
-        StringBuilder  stringBuilder = new StringBuilder();
-        String         ls = System.getProperty("line.separator");
-
-        try {
-            while((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-                stringBuilder.append(ls);
-            }
-
-            return stringBuilder.toString();
-        } finally {
-            reader.close();
-        }
     }
 
     private static void doRenderToPDF(ITextRenderer renderer, String pdf) throws Exception {
