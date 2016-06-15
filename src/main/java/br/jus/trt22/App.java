@@ -11,21 +11,30 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 
-/**
- * Hello world!
- */
 public class App {
+    /**
+     *
+     * See convert.sh inthe root of this project for how to use
+     * this project
+     *
+     * @param args must receive 2 arguments: the input filename and the final pdf file name
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
 
-        File file = new File(args[0]);
+        String originalHtmlFile = args[0];
+        File file = new File(originalHtmlFile);
         InputStream is = new FileInputStream(file);
 
+        // using jsoup to transform the original html in
+        // a well formatted xhtml
         org.jsoup.nodes.Document document = Jsoup.parse(file,"utf-8");
         document.outputSettings().syntax(org.jsoup.nodes.Document.OutputSettings.Syntax.xml); //This will ensure the validity
         document.outputSettings().escapeMode(Entities.EscapeMode.xhtml);
         Reader br = new StringReader(document.toString());
 
-
+        // using Tidy to proccess xhtml and ensure that the
+        // xhtml is well formatted
         Tidy tidy = new Tidy();
         tidy.setXmlTags(true);
         tidy.setShowWarnings(true);
@@ -37,7 +46,10 @@ public class App {
 
         ITextRenderer renderer = new ITextRenderer();
         renderer.setDocument(tidyDocument,null);
-        doRenderToPDF(renderer, args[1]);
+
+        // rendering the final pdf to the pdf file name
+        String convertedPDFFileName = args[1];
+        doRenderToPDF(renderer, convertedPDFFileName);
     }
 
     private String readFile(String file) throws IOException {
