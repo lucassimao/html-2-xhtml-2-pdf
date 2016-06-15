@@ -3,7 +3,7 @@
 Simple project showing how to convert a HTML not well formatted file
 to XHTML and after that, to PDF
 
-This project uses:
+- This project uses:
     - flying-saucer-pdf
     - itext
     - jsoup
